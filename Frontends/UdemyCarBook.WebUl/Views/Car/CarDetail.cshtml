@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "CarDetail";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+<section class="ftco-section ftco-car-details">
+    <div class="container">
+
+        @* Kanka hem null hem de 0 kontrolü yapıyoruz *@
+        @if (ViewBag.carId != null && (int)ViewBag.carId > 0)
+        {
+            var cid = (int)ViewBag.carId; @* ID'yi bir değişkene alıp aşağıda öyle kullanalım *@
+
+            @await Component.InvokeAsync("_CarDetailMainCarFeatureComponentPartial", new { id = cid })
+
+            <div class="row">
+                <div class="col-md-12 pills">
+                    <div class="bd-example bd-example-tabs">
+
+                        @await Component.InvokeAsync("_CarDetailTabPaneComponentPartial", new { id = cid })
+
+                        <div class="tab-content" id="pills-tabContent">
+
+                            @await Component.InvokeAsync("_CarDetailCarFeatureByCarIdComponentPartial", new { id = cid })
+
+                            @await Component.InvokeAsync("_CarDetailCarDescriptionByCarIdComponentPartial", new { id = cid })
+
+                            @await Component.InvokeAsync("_CarDetailCommentsByCarIdComponentPartial", new { id = cid })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger text-center">
+                <h3>Hata: Araç kimliği (ID) geçersiz!</h3>
+                <p>Lütfen araç listesine dönüp tekrar seçim yapınız.</p>
+                <a href="/Car/Index" class="btn btn-primary">Araç Listesine Dön</a>
+            </div>
+        }
+    </div>
+</section>

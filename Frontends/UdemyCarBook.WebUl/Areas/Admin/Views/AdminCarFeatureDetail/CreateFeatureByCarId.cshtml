@@ -1,0 +1,43 @@
+﻿@model CreateFeatureDto
+@{
+    ViewData["Title"] = "Yeni Özellik";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Yeni Özellik Ekle</h4>
+                <p class="card-subtitle mb-4">
+                    Araç ile ilgili özellikleri girip kaydedebilirsiniz.
+                </p>
+
+                <form method="post" action="/Admin/AdminCarFeatureDetail/Index">
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <label>Özellik Adı</label>
+                        <input asp-for="Name"
+                               class="form-control"
+                               placeholder="Örn: Klima"
+                               required />
+                        @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+                    </div>
+
+                    @if (ViewBag.ApiError != null)
+                    {
+                        <div class="alert alert-danger mt-3">
+                            @ViewBag.ApiError
+                        </div>
+                    }
+
+                    <br />
+                    <button type="submit" class="btn btn-primary">
+                        Özelliği Kaydet
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

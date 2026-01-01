@@ -1,0 +1,35 @@
+﻿@* @model List<UdemyCarBook.Dto.AuthorDtos.GetAuthorByBlogAuthorIdDto>
+
+@foreach(var item in Model)
+{
+<div class="about-author d-flex p-4 bg-light">
+    <div class="bio mr-5">
+            <img src="@item.AuthorImageUrl" alt="Image placeholder" class="img-fluid mb-4">
+    </div>
+    <div class="desc">
+        <h3>@item.AuthorName</h3>
+        <p>@item.AuthorDescription</p>
+    </div>
+</div>
+} *@
+
+
+
+@model List<UdemyCarBook.Dto.AuthorDtos.GetAuthorByBlogAuthorIdDto>
+
+@foreach (var item in Model)
+{
+    <div class="about-author d-flex p-4 bg-light">
+        <div class="bio mr-5">
+            @* 'style' ekleyerek genişliği ve yüksekliği sabitliyoruz, object-fit ile bozulmayı önlüyoruz *@
+            <img src="@item.AuthorImageUrl"
+                 alt="Yazar Fotoğrafı"
+                 class="img-fluid mb-4"
+                 style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;">
+        </div>
+        <div class="desc">
+            <h3>@item.AuthorName</h3>
+            <p>@item.AuthorDescription</p>
+        </div>
+    </div>
+}

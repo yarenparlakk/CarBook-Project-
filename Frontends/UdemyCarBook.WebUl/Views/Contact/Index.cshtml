@@ -1,0 +1,45 @@
+﻿@model CreateContactDto
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+<section class="ftco-section contact-section">
+    <div class="container">
+        <div class="row d-flex mb-5 contact-info">
+            @await Component.InvokeAsync("_FooterAddressComponantPartial")
+            <div class="col-md-8 block-9 mb-md-5">
+                <form class="bg-light p-5 contact-form" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Adınız soyadınız" asp-for="Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Email Adresiniz" asp-for="Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Konu" asp-for="Subject">
+                    </div>
+                    <div class="form-group">
+                        <textarea asp-for="Message" cols="30" rows="7" class="form-control" placeholder="Mesajınız"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Mesajı Gönder" class="btn btn-primary py-3 px-5">
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="map-container" style="width: 100%; height: 450px; margin-top: 30px;">
+            @* Google Maps Iframe - API Key Gerektirmez *@
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.650422961529!2d29.02058697655077!3d40.98918912061921!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab869db195e35%3A0x6b47253457f59d0d!2zS2FkxLFrw7Z5IFLEsWh0xLFt!5e0!3m2!1str!2str!4v1703956000000!5m2!1str!2str"
+                    width="100%"
+                    height="100%"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+</section>
+

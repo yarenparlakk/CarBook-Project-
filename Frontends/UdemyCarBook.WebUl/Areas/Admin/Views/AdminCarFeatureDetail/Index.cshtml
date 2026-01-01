@@ -1,0 +1,49 @@
+﻿@model List<ResultCarFeatureByCarIdDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Araca Ait Özellikler</h4>
+                        <p class="card-subtitle mb-4">Seçilen araç için aktif veya pasif olmasını istediğiniz özellikleri işaretleyiniz.</p>
+
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            <form method="post">
+                                @for (int i = 0; i < Model.Count; i++)
+                                {
+                                    <div class="form-check mb-2">
+                                        @* ID ve Name verilerini POST için saklıyoruz *@
+                                        <input type="hidden" asp-for="@Model[i].CarFeatureID" />
+                                        <input type="hidden" asp-for="@Model[i].FeatureName" />
+
+                                        @* Checkbox ve Label eşleşmesi için id ekledik *@
+                                        <input type="checkbox" asp-for="@Model[i].Available" class="form-check-input" id="feat_@i" />
+                                        <label class="form-check-label" for="feat_@i">
+                                            @Model[i].FeatureName
+                                        </label>
+                                    </div>
+                                }
+                                <br />
+                                <button type="submit" class="btn btn-primary waves-effect waves-light">Değişiklikleri Kaydet</button>
+                                <a asp-area="Admin" asp-controller="AdminCar" asp-action="Index" class="btn btn-outline-secondary ml-2">İptal</a>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="alert alert-warning">
+                                <strong>Bilgi:</strong> Bu araca ait henüz atanmış bir özellik bulunmamaktadır.
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

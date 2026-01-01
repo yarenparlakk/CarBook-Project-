@@ -1,0 +1,157 @@
+﻿@model List<UdemyCarBook.Dto.ReviewDtos.ResultReviewByCarIdDto>
+
+@* Kanka bu div, bu içeriğin SADECE yorumlar sekmesinde görünmesini sağlar *@
+<div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
+	<div class="row">
+		@* Sol Taraf: Yorum Listesi *@
+		<div class="col-md-8">
+			<h3 class="head">@Model.Count Değerlendirme</h3>
+			@if (Model != null && Model.Any())
+			{
+				@foreach (var item in Model)
+				{
+					<div class="review d-flex mb-4">
+						<div class="user-img" style="background-image: url(@(string.IsNullOrEmpty(item.CustomerImage) ? "/carbook-master/images/person_1.jpg" : item.CustomerImage))"></div>
+						<div class="desc w-100">
+							<h4>
+								<span class="text-left">@item.CustomerName</span>
+								<span class="text-right" style="font-size: 13px; color: #999;">@item.ReviewDate.ToString("dd MMM yyyy")</span>
+							</h4>
+							<p class="star">
+								<span>
+									@for (int i = 1; i <= 5; i++)
+									{
+										<i class="ion-ios-star" style="color: @(i <= item.RaytingValue ? "#edbb0e" : "#ccc");"></i>
+									}
+								</span>
+								<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
+							</p>
+							<p>@item.Comment</p>
+						</div>
+					</div>
+				}
+			}
+		</div>
+
+		@* SAĞ TARAF: Dinamik İstatistik Paneli *@
+		<div class="col-md-4">
+			<div class="rating-wrap" style="background: #f8f9fa; padding: 20px; border-radius: 5px;">
+				<h3 class="head mb-3">Puan Dağılımı</h3>
+				<div class="wrap">
+					@for (int i = 5; i >= 1; i--)
+					{
+						var count = Model.Count(x => x.RaytingValue == i);
+						// Yüzde hesabı: (Yıldız Sayısı / Toplam Yorum) * 100
+						var percentage = Model.Count > 0 ? (count * 100) / Model.Count : 0;
+
+						<p class="star d-flex align-items-center justify-content-between mb-2">
+							<span>
+								@for (int j = 1; j <= 5; j++)
+								{
+									<i class="ion-ios-star @(j <= i ? "" : "text-light")" style="color: @(j <= i ? "#edbb0e" : "#ccc");"></i>
+								}
+								<small class="ml-2">(@percentage%)</small>
+							</span>
+							<span class="badge badge-pill badge-secondary">@count Yorum</span>
+						</p>
+					}
+				</div>
+				<hr />
+				<div class="total-rating text-center">
+					<h4 style="font-size: 30px; font-weight: bold; color: #000;">
+						@(Model.Count > 0 ? Model.Average(x => x.RaytingValue).ToString("0.0") : "0.0")
+					</h4>
+					<p>Genel Puanlama</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+@* @model List<UdemyCarBook.Dto.ReviewDtos.ResultReviewByCarIdDto>
+
+
+<div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
+	<div class="row">
+		<div class="col-md-7">
+			<h3 class="head">24 Değerlendirme</h3>
+			@foreach(var item in Model)
+			{
+				<div class="review d-flex">
+				<div class="user-img" style="background-image: url(@item.CustomerImage)"></div>
+				<div class="desc">
+					<h4>
+						<span class="text-left">@item.CustomerName</span>
+						<span class="text-right">@item.ReviewDate</span>
+					</h4>
+					<p class="star">
+						
+							@item.RaytingValue
+						
+						<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
+					</p>
+					<p>@item.Comment</p>
+				</div>
+			</div>
+			}
+			
+		</div>
+		<div class="col-md-5">
+			<div class="rating-wrap">
+				<h3 class="head">DDeğerlendirme Sonuçları </h3>
+				<div class="wrap">
+					<p class="star">
+						<span>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							(98%)
+						</span>
+						<span>20 Reviews</span>
+					</p>
+					<p class="star">
+						<span>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							(85%)
+						</span>
+						<span>10 Reviews</span>
+					</p>
+					<p class="star">
+						<span>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							(70%)
+						</span>
+						<span>5 Reviews</span>
+					</p>
+					<p class="star">
+						<span>
+							<i class="ion-ios-star"></i>
+							<i class="ion-ios-star"></i>
+							(10%)
+						</span>
+						<span>0 Reviews</span>
+					</p>
+					<p class="star">
+						<span>
+							<i class="ion-ios-star"></i>
+							(0%)
+						</span>
+						<span>0 Reviews</span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> *@

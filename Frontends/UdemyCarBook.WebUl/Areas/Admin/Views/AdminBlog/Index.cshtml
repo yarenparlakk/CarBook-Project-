@@ -1,0 +1,62 @@
+﻿@model List<ResultAllBlogsWithAuthorDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Blog Listesi ve İşlemleri</h4>
+                        <p class="card-subtitle mb-4">
+                            Bloglarla ilgili silme, güncelleme ve blog listesi erişimini görebilirsiniz. Yeni blog ekleme işlemi admin tarafından yapılmamaktadır. Eğer blog ekleme işlemi yapmka isterseniz yazar olarak giriş yapmanız gerekmektir. Her yazar sadece kendi bloglarını düzenleyebilir. Bunun için uygulamada Login/WriterLogin sayfasından giriş yapabilirsiniz.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th># </th>
+                                        <th>Başlık </th>
+                                        <th>Yazar </th>
+                                        <th>Kategori </th>
+                                        <th>Tarih </th>
+                                        <th>Sil</th>
+                                        <th>Bloğu Aç</th>
+                                        <th>Bloğun Yorumlar</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        count++;
+                                        <tr>
+                                            <td>@count</td>
+                                            <td> @item.title</td>
+                                            <td> @item.authorName</td>
+                                            <td> @item.categoryID</td>
+                                            <td> @item.createDate</td>
+                                            <td><a href="/Admin/AdminBlog/RemoveBlog/@item.blogID" class="btn btn-outline-danger">Sil</a></td>
+                                            <td><a href="/Blog/BlogDetail/@item.blogID" class="btn btn-outline-success">Bloğu Aç</a></td>
+                                            <td><a href="/Admin/AdminComment/Index/@item.blogID" class="btn btn-outline-warning">Bloğun Yorumları</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+

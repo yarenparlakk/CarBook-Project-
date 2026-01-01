@@ -1,0 +1,28 @@
+﻿@model List<ResultLast3BlogsWithAuthors>
+
+<div class="sidebar-box ftco-animate">
+    <h3>Son Bloglar</h3>
+
+    @foreach (var item in Model)
+    {
+        <div class="block-21 mb-4 d-flex">
+            @* 1. Resim Linki: Tıklandığında BlogID ile detay sayfasına gider *@
+            <a class="blog-img mr-4"
+               style="background-image: url(@item.CoverImageUrl);"
+               href="/Blog/BlogDetail/@item.BlogID"></a>
+
+            <div class="text">
+                <h3 class="heading">
+                    @* 2. Başlık Linki: href="#" yerine yönlendirme ekledik *@
+                    <a href="/Blog/BlogDetail/@item.BlogID">@item.Title</a>
+                </h3>
+                <div class="meta">
+                    @* 3. Tarih formatını daha şık hale getirdik *@
+                    <div><a href="#"><span class="icon-calendar"></span> @item.CreateDate.ToString("dd MMM yyyy")</a></div>
+                    <div><a href="#"><span class="icon-person"></span> @item.AuthorName</a></div>
+                    <div><a href="#"><span class="icon-chat"></span> 0</a></div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
